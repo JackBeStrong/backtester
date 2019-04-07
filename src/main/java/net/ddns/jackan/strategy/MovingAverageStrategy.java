@@ -8,11 +8,17 @@ import org.slf4j.LoggerFactory;
 import java.util.LinkedList;
 
 public class MovingAverageStrategy extends Strategy {
+
+    public double INITIAL_HOLDING_A = 0;
+    public double INITIAL_HOLDING_B = 0;
+    public double balance = 5000;
+
     private final Logger logger = LoggerFactory.getLogger(MovingAverageStrategy.class);
     private final int MOVINGAVERAGEBARS = 10;
 
     private LinkedList<Bar> bars = new LinkedList<Bar>();
-    private double movingAverage;
+    private double movingAverage = 0;
+    private boolean aboveLine = false;
 
 
     public void nextBar(Bar currentBar) {
@@ -24,7 +30,14 @@ public class MovingAverageStrategy extends Strategy {
             bars.add(currentBar);
         }
         calculateIndicators();
-
+        if (aboveLine && movingAverage < currentBar.getClose()){
+            entry(currentBar);
+            aboveLine = false;
+        }
+        if (!aboveLine && movingAverage >= currentBar.getClose()){
+            entry(currentBar);
+            aboveLine = true;
+        }
     }
 
     public void calculateIndicators() {
@@ -33,5 +46,11 @@ public class MovingAverageStrategy extends Strategy {
 
     private void calculateMovingAverage() {
         movingAverage = BarsCal.meanClose(bars);
+    }
+
+    public void entry(Bar currentBar) {
+        if(aboveLine){
+
+        }
     }
 }
