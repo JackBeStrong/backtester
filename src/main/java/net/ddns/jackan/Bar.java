@@ -1,24 +1,38 @@
 package net.ddns.jackan;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Bar {
 
     private Date dateTime;
     private double open;
-    private double close;
     private double high;
     private double low;
+    private double close;
+    private DateFormat formate = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
     public Bar(Date dateTime, double open, double high, double low, double close) {
         this.dateTime = dateTime;
         this.open = open;
-        this.close = close;
         this.high = high;
         this.low = low;
+        this.close = close;
     }
 
     public Bar() {
+    }
+
+    public String toCsv() {
+        String result = formate.format(dateTime) + "," + String.format("%.4f", open) + "," + String.format("%.4f",
+                high) + "," + String.format("%.4f", low) + "," + String.format("%.4f", close);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Bar{" + "dateTime=" + dateTime + ", open=" + open + ", high=" + high + ", low=" + low + ", close=" + close + '}';
     }
 
     public Date getDateTime() {
@@ -37,14 +51,6 @@ public class Bar {
         this.open = open;
     }
 
-    public double getClose() {
-        return close;
-    }
-
-    public void setClose(double close) {
-        this.close = close;
-    }
-
     public double getHigh() {
         return high;
     }
@@ -61,8 +67,11 @@ public class Bar {
         this.low = low;
     }
 
-    @Override
-    public String toString() {
-        return "Bar{" + "dateTime=" + dateTime + ", open=" + open + ", close=" + close + ", high=" + high + ", low=" + low + '}';
+    public double getClose() {
+        return close;
+    }
+
+    public void setClose(double close) {
+        this.close = close;
     }
 }

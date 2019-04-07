@@ -7,7 +7,7 @@ public class App {
 
     private static final Logger logger = LoggerFactory.getLogger(App.class);
 
-    public final static String fileLocation = "src/main/resources/testData/SampleDataAUDUSD20161203.csv";
+    public final static String fileLocation = "src/main/resources/testData/SampleData.csv";
 
 
     public static void main(String[] args) {
